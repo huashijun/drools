@@ -1,0 +1,35 @@
+import com.huashijun.drools.model.UserType;
+import com.huashijun.drools.model.PayInfoModel;
+global com.huashijun.drools.model.PayInfoModel payInfoModel;
+
+dialect "mvel"
+
+// 规则1： 根据用户类型规则
+rule "User type based discount - FIRSTLEVEL"
+    when
+        // 当用户类型是FIRSTLEVEL
+        PayInfoModel(userType.getValue == "FIRSTLEVEL")
+    then
+        System.out.println("==========20%的折扣=============");
+        payInfoModel.setAmount((payInfoModel.getAmount() * 4 / 5 ));
+    end
+
+// 规则2： 根据用户类型规则
+rule "User type based discount - SECONDLEVEL"
+    when
+        // 当用户类型是SECONDLEVEL
+        PayInfoModel(userType.getValue == "SECONDLEVEL")
+    then
+        System.out.println("==========10%的折扣=============");
+        payInfoModel.setAmount(payInfoModel.getAmount() * 9 / 10 );
+    end
+
+// 规则3： 根据用户类型规则
+rule "User type based discount - NEW"
+    when
+        // 当用户类型是NEW
+        PayInfoModel(userType.getValue == "NEW")
+    then
+        System.out.println("==========5%的折扣=============");
+        payInfoModel.setAmount(payInfoModel.getAmount() * 19 / 20 );
+    end
